@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import ProfileSection from "../components/users/ProfileSection";
 import FriendsList from "../components/users/FriendsList";
@@ -7,45 +7,90 @@ import CategorySelectionModal from "../components/quiz/CategorySelectionModal";
 const HomePage = () => {
   const navigate = useNavigate();
   const [showCategoryModal, setShowCategoryModal] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef(null);
 
   // Mock user data - you'll replace this with actual data from your server
   const userData = {
-    name: "John Doe",
-    level: 15,
-    profileImage: "https://via.placeholder.com/100",
+    name: "Rahul Mishra",
+    level: 99,
+    profileImage: "https://images.unsplash.com/photo-1654110455429-cf322b40a906?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZSUyMHBpY3R1cmV8ZW58MHx8MHx8fDA%3D",
   };
 
   // Mock friends data - you'll replace this with actual data from your server
   const friendsList = [
     {
       id: 1,
-      name: "Alice",
+      name: "Alone Coder",
       level: 12,
-      profileImage: "https://via.placeholder.com/50",
+      profileImage: "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvZmlsZSUyMHBpY3R1cmV8ZW58MHx8MHx8fDA%3D",
     },
     {
       id: 2,
-      name: "Bob",
+      name: "Kaushik",
       level: 18,
-      profileImage: "https://via.placeholder.com/50",
+      profileImage: "https://images.unsplash.com/photo-1695927621677-ec96e048dce2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTB8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fHww",
     },
     {
       id: 3,
-      name: "Charlie",
+      name: "Akash",
       level: 10,
-      profileImage: "https://via.placeholder.com/50",
+      profileImage: "https://images.unsplash.com/photo-1463453091185-61582044d556?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTJ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fHww",
     },
     {
       id: 4,
-      name: "Diana",
+      name: "Priya",
       level: 20,
-      profileImage: "https://via.placeholder.com/50",
+      profileImage: "https://images.unsplash.com/photo-1653379671988-b32fceafb5e5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NTF8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fHww",
     },
     {
       id: 5,
-      name: "Eve",
+      name: "Shivam",
       level: 14,
-      profileImage: "https://via.placeholder.com/50",
+      profileImage: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzZ8fHByb2ZpbGUlMjBwaWN0dXJlfGVufDB8fDB8fHww",
+    },
+  ];
+
+  // Mock events data - you'll replace this with actual data from your server
+  const upcomingEvents = [
+    {
+      id: 1,
+      title: "Weekend Quiz Marathon",
+      description: "48-hour quiz challenge with special rewards",
+      icon: "🏃",
+      type: "Marathon",
+      startDate: "Mar 22, 2026",
+      endDate: "Mar 24, 2026",
+      participants: 1250,
+      prize: "5000 Coins + Exclusive Badge",
+      status: "upcoming",
+      color: "from-orange-500 to-red-600",
+    },
+    {
+      id: 2,
+      title: "Science Trivia Tournament",
+      description: "Test your knowledge in science categories",
+      icon: "🔬",
+      type: "Tournament",
+      startDate: "Mar 25, 2026",
+      endDate: "Mar 27, 2026",
+      participants: 890,
+      prize: "10,000 Coins + Trophy",
+      status: "upcoming",
+      color: "from-blue-500 to-cyan-600",
+    },
+    {
+      id: 3,
+      title: "Daily Speed Challenge",
+      description: "Answer 20 questions in 60 seconds",
+      icon: "⚡",
+      type: "Challenge",
+      startDate: "Today",
+      endDate: "Today",
+      participants: 2340,
+      prize: "500 Coins",
+      status: "active",
+      color: "from-yellow-500 to-amber-600",
     },
   ];
 
@@ -53,16 +98,72 @@ const HomePage = () => {
     setShowCategoryModal(true);
   };
 
+  useEffect(() => {
+    // Check localStorage for background music preference
+    const musicEnabled = localStorage.getItem("backgroundMusic");
+    const savedVolume = localStorage.getItem("musicVolume");
+
+    if (audioRef.current) {
+      const volume = savedVolume ? parseInt(savedVolume) / 100 : 0.3;
+      audioRef.current.volume = volume;
+
+      // Auto-play if enabled in settings
+      if (musicEnabled === "true") {
+        audioRef.current.play().catch((error) => {
+          console.log("Audio playback failed:", error);
+        });
+        setIsPlaying(true);
+      }
+    }
+
+    // Listen for storage changes from settings page
+    const handleStorageChange = (e) => {
+      if (e.key === "backgroundMusic" && audioRef.current) {
+        if (e.newValue === "true") {
+          audioRef.current.play().catch((error) => {
+            console.log("Audio playback failed:", error);
+          });
+          setIsPlaying(true);
+        } else {
+          audioRef.current.pause();
+          setIsPlaying(false);
+        }
+      }
+    };
+
+    // Listen for volume changes
+    const handleVolumeChange = (e) => {
+      if (audioRef.current && e.detail?.volume !== undefined) {
+        audioRef.current.volume = e.detail.volume;
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("musicVolumeChange", handleVolumeChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("musicVolumeChange", handleVolumeChange);
+    };
+  }, []);
+
   return (
-    <div className="homePageContainer min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-3 sm:p-5 md:p-6 overflow-auto">
-      <div className="mainContent flex flex-col lg:flex-row gap-4 sm:gap-5 md:gap-6 max-w-[1400px] min-h-screen lg:h-full mx-auto pb-20 lg:pb-0">
+    <div className="homePageContainer h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-3 sm:p-5 md:p-6 overflow-hidden">
+      {/* Background Music */}
+      <audio ref={audioRef} loop preload="auto">
+        <source src="/music/theme-song.mp3" type="audio/mpeg" />
+        <source src="/music/theme-song.ogg" type="audio/ogg" />
+        Your browser does not support the audio element.
+      </audio>
+
+      <div className="mainContent flex flex-col lg:flex-row gap-4 sm:gap-5 md:gap-6 max-w-[1400px] h-full mx-auto pb-20 sm:pb-0">
         {/* Left Sidebar */}
-        <div className="leftSidebar w-full sm:w-full md:w-full lg:w-[320px] flex flex-col gap-3 sm:gap-4 md:gap-4 lg:max-h-full">
+        <div className="leftSidebar w-full sm:w-full md:w-full lg:w-[320px] flex flex-col gap-3 sm:gap-4 md:gap-4 h-auto lg:h-full overflow-hidden">
           {/* Profile Section */}
           <ProfileSection userData={userData} />
 
           {/* Friends List - Hidden on mobile, shown on tablet and desktop */}
-          <div className="hidden sm:block flex-1 lg:flex-none lg:h-auto">
+          <div className="hidden sm:block flex-1 lg:flex-1 lg:min-h-0 overflow-y-auto">
             <FriendsList friends={friendsList} />
           </div>
 
@@ -87,7 +188,7 @@ const HomePage = () => {
         </div>
 
         {/* Right Side - Action Buttons */}
-        <div className="rightSideButtons flex-1 lg:overflow-y-auto">
+        <div className="rightSideButtons flex-1 lg:h-full lg:overflow-y-auto overflow-x-hidden">
           <div className="buttonsGrid grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-3 sm:gap-4 md:gap-5 lg:gap-4">
             {/* Leaderboard Button */}
             <button
@@ -252,6 +353,93 @@ const HomePage = () => {
                 </svg>
               </div>
             </button>
+          </div>
+
+          {/* Events Section */}
+          <div className="eventsSection mt-4 sm:mt-5 md:mt-6">
+            <div className="flex items-center justify-between mb-3 sm:mb-4">
+              <h2 className="text-white font-bold text-lg sm:text-xl md:text-2xl flex items-center gap-2">
+                🎉 Upcoming Events
+              </h2>
+              <button
+                onClick={() => navigate("/events")}
+                className="text-white/70 hover:text-white text-xs sm:text-sm font-semibold transition-colors"
+              >
+                View All →
+              </button>
+            </div>
+
+            <div className="eventsGrid grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-3.5 md:gap-4">
+              {upcomingEvents.map((event) => (
+                <div
+                  key={event.id}
+                  className={`eventCard bg-gradient-to-br ${event.color} rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border-2 border-white/20 shadow-xl hover:shadow-2xl transform transition-all hover:scale-[1.02] cursor-pointer relative overflow-hidden`}
+                  onClick={() => alert(`Join ${event.title}!`)}
+                >
+                  {/* Status Badge */}
+                  {event.status === "active" && (
+                    <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-white/90 text-green-600 font-bold text-[10px] sm:text-xs px-2 py-1 rounded-full animate-pulse">
+                      🔴 LIVE
+                    </div>
+                  )}
+
+                  <div className="flex items-start gap-3 sm:gap-4">
+                    <div className="text-4xl sm:text-5xl md:text-6xl shrink-0">
+                      {event.icon}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex items-start justify-between gap-2 mb-2">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="text-white font-bold text-base sm:text-lg md:text-xl mb-1 line-clamp-1">
+                            {event.title}
+                          </h3>
+                          <p className="text-white/90 text-xs sm:text-sm md:text-base line-clamp-2">
+                            {event.description}
+                          </p>
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-2 gap-2 sm:gap-3 mt-3 sm:mt-4">
+                        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-2.5">
+                          <div className="text-white/80 text-[10px] sm:text-xs mb-0.5">
+                            📅 Duration
+                          </div>
+                          <div className="text-white font-semibold text-xs sm:text-sm truncate">
+                            {event.startDate === event.endDate
+                              ? event.startDate
+                              : `${event.startDate.split(",")[0]} - ${event.endDate.split(",")[0]}`}
+                          </div>
+                        </div>
+                        <div className="bg-white/10 backdrop-blur-sm rounded-lg p-2 sm:p-2.5">
+                          <div className="text-white/80 text-[10px] sm:text-xs mb-0.5">
+                            👥 Players
+                          </div>
+                          <div className="text-white font-semibold text-xs sm:text-sm">
+                            {event.participants.toLocaleString()}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-white/20">
+                        <div className="flex items-center justify-between gap-2">
+                          <div className="flex-1 min-w-0">
+                            <div className="text-white/80 text-[10px] sm:text-xs mb-0.5">
+                              🏆 Prize
+                            </div>
+                            <div className="text-white font-bold text-xs sm:text-sm md:text-base truncate">
+                              {event.prize}
+                            </div>
+                          </div>
+                          <button className="bg-white hover:bg-white/90 text-gray-900 font-bold text-xs sm:text-sm px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg transition-all transform hover:scale-105 shrink-0">
+                            Join Now
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>

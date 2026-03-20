@@ -11,6 +11,7 @@ import StatisticsPage from "./pages/StatisticsPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import QuizPage from "./pages/QuizPage";
 import FriendsPage from "./pages/FriendsPage";
+import EventsPage from "./pages/EventsPage";
 import AdminHomePage from "./pages/admin/AdminHomePage";
 import AdminAnalyticsPage from "./pages/admin/AdminAnalyticsPage";
 import AdminUsersPage from "./pages/admin/AdminUsersPage";
@@ -29,6 +30,7 @@ const App = () => {
       <Route path="/settings" element={<SettingsPage />} />
       <Route path="/statistics" element={<StatisticsPage />} />
       <Route path="/friends" element={<FriendsPage />} />
+      <Route path="/events" element={<EventsPage />} />
       <Route path="/user/:userId" element={<UserProfilePage />} />
       <Route path="/quiz" element={<QuizPage />} />
       <Route path="/admin" element={<AdminHomePage />} />

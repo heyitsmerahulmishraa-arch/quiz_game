@@ -181,7 +181,9 @@ const UserProfilePage = () => {
           className="backButton text-white/70 hover:text-white mb-4 sm:mb-5 md:mb-6 flex items-center gap-1.5 sm:gap-2 md:gap-2.5 transition-colors"
         >
           <span className="text-xl sm:text-2xl md:text-3xl">←</span>
-          <span className="font-semibold text-sm sm:text-base md:text-lg">Back</span>
+          <span className="font-semibold text-sm sm:text-base md:text-lg">
+            Back
+          </span>
         </button>
 
         {/* Profile Header Card */}
@@ -323,7 +325,9 @@ const UserProfilePage = () => {
             {/* Quick Stats */}
             <div className="quickStats grid grid-cols-2 sm:grid-cols-4 md:grid-cols-4 gap-2 sm:gap-3 md:gap-4">
               <div className="statCard bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 text-center border border-white/20">
-                <div className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-1.5 md:mb-2">🎮</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-1.5 md:mb-2">
+                  🎮
+                </div>
                 <div className="text-white/70 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1">
                   Games Played
                 </div>
@@ -332,7 +336,9 @@ const UserProfilePage = () => {
                 </div>
               </div>
               <div className="statCard bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 text-center border border-white/20">
-                <div className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-1.5 md:mb-2">🏆</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-1.5 md:mb-2">
+                  🏆
+                </div>
                 <div className="text-white/70 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1">
                   Win Rate
                 </div>
@@ -341,7 +347,9 @@ const UserProfilePage = () => {
                 </div>
               </div>
               <div className="statCard bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 text-center border border-white/20">
-                <div className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-1.5 md:mb-2">⭐</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-1.5 md:mb-2">
+                  ⭐
+                </div>
                 <div className="text-white/70 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1">
                   Total Points
                 </div>
@@ -350,7 +358,9 @@ const UserProfilePage = () => {
                 </div>
               </div>
               <div className="statCard bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-5 text-center border border-white/20">
-                <div className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-1.5 md:mb-2">🔥</div>
+                <div className="text-2xl sm:text-3xl md:text-4xl mb-1 sm:mb-1.5 md:mb-2">
+                  🔥
+                </div>
                 <div className="text-white/70 text-xs sm:text-sm md:text-base mb-0.5 sm:mb-1">
                   Current Streak
                 </div>
@@ -411,7 +421,8 @@ const UserProfilePage = () => {
               <h3 className="text-white font-bold text-base sm:text-lg md:text-xl mb-3 sm:mb-3.5 md:mb-4">
                 Performance Stats
               </h3>
-              <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5">{/* Duplicate removed */}
+              <div className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-5">
+                {/* Duplicate removed */}
                 <div className="stat">
                   <div className="text-white/70 text-xs sm:text-sm md:text-base mb-1 sm:mb-1.5 md:mb-2">
                     Games Won

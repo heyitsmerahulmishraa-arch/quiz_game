@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SettingsPage = () => {
@@ -13,6 +13,7 @@ const SettingsPage = () => {
     // Game Settings
     soundEffects: true,
     backgroundMusic: false,
+    musicVolume: 30,
     vibration: true,
     autoNextQuestion: true,
     timerVisible: true,
@@ -36,8 +37,47 @@ const SettingsPage = () => {
     fontSize: "medium",
   });
 
+  // Load settings from localStorage on mount
+  useEffect(() => {
+    const savedMusic = localStorage.getItem("backgroundMusic");
+    const savedVolume = localStorage.getItem("musicVolume");
+
+    if (savedMusic !== null) {
+      setSettings((prev) => ({
+        ...prev,
+        backgroundMusic: savedMusic === "true",
+        musicVolume: savedVolume ? parseInt(savedVolume) : 30,
+      }));
+    }
+  }, []);
+
   const handleToggle = (setting) => {
-    setSettings({ ...settings, [setting]: !settings[setting] });
+    const newValue = !settings[setting];
+    setSettings({ ...settings, [setting]: newValue });
+
+    // Save background music setting to localStorage immediately
+    if (setting === "backgroundMusic") {
+      localStorage.setItem("backgroundMusic", newValue.toString());
+      // Trigger storage event for same-window updates
+      window.dispatchEvent(
+        new StorageEvent("storage", {
+          key: "backgroundMusic",
+          newValue: newValue.toString(),
+          oldValue: settings[setting].toString(),
+        }),
+      );
+    }
+  };
+
+  const handleVolumeChange = (value) => {
+    setSettings({ ...settings, musicVolume: value });
+    localStorage.setItem("musicVolume", value.toString());
+    // Dispatch event to update volume in real-time
+    window.dispatchEvent(
+      new CustomEvent("musicVolumeChange", {
+        detail: { volume: value / 100 },
+      }),
+    );
   };
 
   const handleSelectChange = (setting, value) => {
@@ -198,8 +238,46 @@ const SettingsPage = () => {
               </button>
             </div>
 
+            {/* Music Volume Slider - Only show when background music is enabled */}
+            {settings.backgroundMusic && (
+              <div className="settingItem flex flex-col gap-2 sm:gap-3 pl-2 sm:pl-3 border-l-2 border-purple-500/50">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <div className="text-white text-sm sm:text-base font-semibold">
+                      🔊 Music Volume
+                    </div>
+                    <div className="text-white/70 text-xs sm:text-sm">
+                      Adjust background music volume
+                    </div>
+                  </div>
+                  <div className="text-white font-bold text-sm sm:text-base shrink-0">
+                    {settings.musicVolume}%
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <span className="text-white/50 text-xs sm:text-sm">🔈</span>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    value={settings.musicVolume}
+                    onChange={(e) =>
+                      handleVolumeChange(parseInt(e.target.value))
+                    }
+                    className="flex-1 h-2 bg-white/20 rounded-lg appearance-none cursor-pointer"
+                    style={{
+                      background: `linear-gradient(to right, #8b5cf6 0%, #8b5cf6 ${settings.musicVolume}%, rgba(255,255,255,0.2) ${settings.musicVolume}%, rgba(255,255,255,0.2) 100%)`,
+                    }}
+                  />
+                  <span className="text-white/50 text-xs sm:text-sm">🔊</span>
+                </div>
+              </div>
+            )}
+
             <div className="settingItem flex items-center justify-between gap-3">
+              {/* Vibration section */}
               <div className="min-w-0 flex-1">
+                {/* Existing Vibration content */}
                 <div className="text-white text-sm sm:text-base font-semibold">
                   Vibration
                 </div>
