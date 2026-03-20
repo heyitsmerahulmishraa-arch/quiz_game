@@ -90,12 +90,14 @@ const Registration = () => {
   const passwordStrength = getPasswordStrength();
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 flex items-center justify-center p-3 sm:p-4">
       <div className="max-w-md w-full">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-white mb-2">🎮 Quiz Master</h1>
-          <p className="text-white/70">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold text-white mb-2">
+            🎮 Quiz Master
+          </h1>
+          <p className="text-white/70 text-sm sm:text-base">
             {isLogin
               ? "Welcome back! Login to continue"
               : "Create your account to start playing"}
@@ -103,15 +105,15 @@ const Registration = () => {
         </div>
 
         {/* Form Container */}
-        <div className="rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm p-6 md:p-8">
+        <div className="rounded-2xl bg-white/10 border border-white/20 backdrop-blur-sm p-5 sm:p-6 md:p-8">
           {/* Toggle Tabs */}
-          <div className="flex gap-2 mb-6">
+          <div className="flex gap-2 mb-5 sm:mb-6">
             <button
               onClick={() => {
                 setIsLogin(false);
                 setErrors({});
               }}
-              className={`flex-1 py-3 rounded-xl font-semibold transition-all ${
+              className={`flex-1 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold transition-all ${
                 !isLogin
                   ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
                   : "bg-white/5 text-white/60 hover:bg-white/10"
@@ -124,7 +126,7 @@ const Registration = () => {
                 setIsLogin(true);
                 setErrors({});
               }}
-              className={`flex-1 py-3 rounded-xl font-semibold transition-all ${
+              className={`flex-1 py-2.5 sm:py-3 rounded-xl text-sm sm:text-base font-semibold transition-all ${
                 isLogin
                   ? "bg-gradient-to-r from-purple-500 to-pink-500 text-white"
                   : "bg-white/5 text-white/60 hover:bg-white/10"
@@ -134,11 +136,11 @@ const Registration = () => {
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
             {/* Username (Sign Up only) */}
             {!isLogin && (
               <div>
-                <label className="block text-white/80 mb-2 text-sm">
+                <label className="block text-white/80 mb-1.5 sm:mb-2 text-xs sm:text-sm">
                   Username
                 </label>
                 <input
@@ -146,38 +148,44 @@ const Registration = () => {
                   name="username"
                   value={formData.username}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-white/10 border ${
+                  className={`w-full px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg bg-white/10 border ${
                     errors.username ? "border-red-500" : "border-white/20"
-                  } text-white placeholder-white/40 focus:outline-none focus:border-purple-500 transition-all`}
+                  } text-white text-sm sm:text-base placeholder-white/40 focus:outline-none focus:border-purple-500 transition-all`}
                   placeholder="Enter your username"
                 />
                 {errors.username && (
-                  <p className="text-red-400 text-sm mt-1">{errors.username}</p>
+                  <p className="text-red-400 text-xs sm:text-sm mt-1">
+                    {errors.username}
+                  </p>
                 )}
               </div>
             )}
 
             {/* Email */}
             <div>
-              <label className="block text-white/80 mb-2 text-sm">Email</label>
+              <label className="block text-white/80 mb-1.5 sm:mb-2 text-xs sm:text-sm">
+                Email
+              </label>
               <input
                 type="email"
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`w-full px-4 py-3 rounded-lg bg-white/10 border ${
+                className={`w-full px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg bg-white/10 border ${
                   errors.email ? "border-red-500" : "border-white/20"
-                } text-white placeholder-white/40 focus:outline-none focus:border-purple-500 transition-all`}
+                } text-white text-sm sm:text-base placeholder-white/40 focus:outline-none focus:border-purple-500 transition-all`}
                 placeholder="Enter your email"
               />
               {errors.email && (
-                <p className="text-red-400 text-sm mt-1">{errors.email}</p>
+                <p className="text-red-400 text-xs sm:text-sm mt-1">
+                  {errors.email}
+                </p>
               )}
             </div>
 
             {/* Password */}
             <div>
-              <label className="block text-white/80 mb-2 text-sm">
+              <label className="block text-white/80 mb-1.5 sm:mb-2 text-xs sm:text-sm">
                 Password
               </label>
               <div className="relative">
@@ -186,19 +194,19 @@ const Registration = () => {
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-white/10 border ${
+                  className={`w-full px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg bg-white/10 border ${
                     errors.password ? "border-red-500" : "border-white/20"
-                  } text-white placeholder-white/40 focus:outline-none focus:border-purple-500 transition-all`}
+                  } text-white text-sm sm:text-base placeholder-white/40 focus:outline-none focus:border-purple-500 transition-all`}
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
+                  className="absolute right-2.5 sm:right-3 top-1/2 -translate-y-1/2 text-white/60 hover:text-white transition-colors"
                 >
                   {showPassword ? (
                     <svg
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -212,7 +220,7 @@ const Registration = () => {
                     </svg>
                   ) : (
                     <svg
-                      className="w-5 h-5"
+                      className="w-4 h-4 sm:w-5 sm:h-5"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -234,7 +242,9 @@ const Registration = () => {
                 </button>
               </div>
               {errors.password && (
-                <p className="text-red-400 text-sm mt-1">{errors.password}</p>
+                <p className="text-red-400 text-xs sm:text-sm mt-1">
+                  {errors.password}
+                </p>
               )}
 
               {/* Password Strength Indicator (Sign Up only) */}
@@ -269,7 +279,7 @@ const Registration = () => {
             {/* Confirm Password (Sign Up only) */}
             {!isLogin && (
               <div>
-                <label className="block text-white/80 mb-2 text-sm">
+                <label className="block text-white/80 mb-1.5 sm:mb-2 text-xs sm:text-sm">
                   Confirm Password
                 </label>
                 <input
@@ -277,15 +287,15 @@ const Registration = () => {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleInputChange}
-                  className={`w-full px-4 py-3 rounded-lg bg-white/10 border ${
+                  className={`w-full px-3 py-2.5 sm:px-4 sm:py-3 rounded-lg bg-white/10 border ${
                     errors.confirmPassword
                       ? "border-red-500"
                       : "border-white/20"
-                  } text-white placeholder-white/40 focus:outline-none focus:border-purple-500 transition-all`}
+                  } text-white text-sm sm:text-base placeholder-white/40 focus:outline-none focus:border-purple-500 transition-all`}
                   placeholder="Confirm your password"
                 />
                 {errors.confirmPassword && (
-                  <p className="text-red-400 text-sm mt-1">
+                  <p className="text-red-400 text-xs sm:text-sm mt-1">
                     {errors.confirmPassword}
                   </p>
                 )}
@@ -294,19 +304,19 @@ const Registration = () => {
 
             {/* Remember Me (Login only) */}
             {isLogin && (
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-0">
                 <label className="flex items-center cursor-pointer">
                   <input
                     type="checkbox"
                     className="w-4 h-4 rounded cursor-pointer"
                   />
-                  <span className="ml-2 text-white/70 text-sm">
+                  <span className="ml-2 text-white/70 text-xs sm:text-sm">
                     Remember me
                   </span>
                 </label>
                 <button
                   type="button"
-                  className="text-purple-400 hover:text-purple-300 text-sm transition-colors"
+                  className="text-purple-400 hover:text-purple-300 text-xs sm:text-sm transition-colors"
                 >
                   Forgot password?
                 </button>
@@ -322,9 +332,9 @@ const Registration = () => {
                     name="agreeToTerms"
                     checked={formData.agreeToTerms}
                     onChange={handleInputChange}
-                    className="w-4 h-4 rounded cursor-pointer mt-1"
+                    className="w-4 h-4 rounded cursor-pointer mt-0.5"
                   />
-                  <span className="ml-2 text-white/70 text-sm">
+                  <span className="ml-2 text-white/70 text-xs sm:text-sm">
                     I agree to the{" "}
                     <button
                       type="button"
@@ -342,7 +352,7 @@ const Registration = () => {
                   </span>
                 </label>
                 {errors.agreeToTerms && (
-                  <p className="text-red-400 text-sm mt-1">
+                  <p className="text-red-400 text-xs sm:text-sm mt-1">
                     {errors.agreeToTerms}
                   </p>
                 )}
@@ -352,24 +362,26 @@ const Registration = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:scale-105 transition-all shadow-lg mt-6"
+              className="w-full py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm sm:text-base font-semibold hover:scale-105 transition-all shadow-lg mt-5 sm:mt-6"
             >
               {isLogin ? "Login" : "Create Account"}
             </button>
           </form>
 
           {/* Divider */}
-          <div className="flex items-center gap-4 my-6">
+          <div className="flex items-center gap-3 sm:gap-4 my-5 sm:my-6">
             <div className="flex-1 h-px bg-white/20" />
-            <span className="text-white/60 text-sm">or continue with</span>
+            <span className="text-white/60 text-xs sm:text-sm">
+              or continue with
+            </span>
             <div className="flex-1 h-px bg-white/20" />
           </div>
 
           {/* Social Login */}
-          <div className="grid grid-cols-3 gap-3">
-            <button className="p-3 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-all">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            <button className="p-2.5 sm:p-3 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-all">
               <svg
-                className="w-6 h-6 mx-auto text-white"
+                className="w-5 h-5 sm:w-6 sm:h-6 mx-auto text-white"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
@@ -379,18 +391,18 @@ const Registration = () => {
                 <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" />
               </svg>
             </button>
-            <button className="p-3 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-all">
+            <button className="p-2.5 sm:p-3 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-all">
               <svg
-                className="w-6 h-6 mx-auto text-white"
+                className="w-5 h-5 sm:w-6 sm:h-6 mx-auto text-white"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
               </svg>
             </button>
-            <button className="p-3 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-all">
+            <button className="p-2.5 sm:p-3 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-all">
               <svg
-                className="w-6 h-6 mx-auto text-white"
+                className="w-5 h-5 sm:w-6 sm:h-6 mx-auto text-white"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
@@ -402,7 +414,7 @@ const Registration = () => {
           {/* Back to Home */}
           <button
             onClick={() => navigate("/")}
-            className="w-full mt-6 py-2 text-white/60 hover:text-white text-sm transition-colors"
+            className="w-full mt-5 sm:mt-6 py-2 text-white/60 hover:text-white text-xs sm:text-sm transition-colors"
           >
             ← Back to Home
           </button>

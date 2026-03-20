@@ -278,18 +278,18 @@ const AchievementsPage = () => {
     .reduce((sum, a) => sum + a.reward, 0);
 
   return (
-    <div className="achievementsPageContainer min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+    <div className="achievementsPageContainer min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-3 sm:p-4 md:p-6 pb-24">
       <div className="achievementsContent max-w-[1400px] mx-auto">
         {/* Header */}
-        <div className="pageHeader mb-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+        <div className="pageHeader mb-4 sm:mb-6">
+          <div className="flex items-start justify-between">
+            <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
               <button
                 onClick={() => navigate("/")}
-                className="backButton bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 rounded-xl border border-white/20 transition-all"
+                className="backButton bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-2 sm:p-3 rounded-xl border border-white/20 transition-all"
               >
                 <svg
-                  className="w-6 h-6"
+                  className="w-5 h-5 sm:w-6 sm:h-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -303,10 +303,10 @@ const AchievementsPage = () => {
                 </svg>
               </button>
               <div>
-                <h1 className="text-white font-bold text-4xl">
+                <h1 className="text-white font-bold text-2xl sm:text-3xl md:text-4xl">
                   🏆 Achievements
                 </h1>
-                <p className="text-white/70 text-sm">
+                <p className="text-white/70 text-xs sm:text-sm">
                   Unlock badges and earn rewards
                 </p>
               </div>
@@ -315,19 +315,19 @@ const AchievementsPage = () => {
         </div>
 
         {/* Stats Cards */}
-        <div className="statsSection grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-          <div className="statCard bg-gradient-to-br from-yellow-500/20 to-orange-600/20 backdrop-blur-md rounded-2xl p-6 border border-yellow-400/30">
-            <div className="flex items-center gap-4">
-              <div className="text-5xl">🏆</div>
+        <div className="statsSection grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 mb-4 sm:mb-6">
+          <div className="statCard bg-gradient-to-br from-yellow-500/20 to-orange-600/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-yellow-400/30 sm:col-span-2 md:col-span-1">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="text-3xl sm:text-4xl md:text-5xl">🏆</div>
               <div>
-                <div className="text-white/70 text-sm">Unlocked</div>
-                <div className="text-white font-bold text-3xl">
+                <div className="text-white/70 text-xs sm:text-sm">Unlocked</div>
+                <div className="text-white font-bold text-2xl sm:text-3xl">
                   {unlockedCount}/{totalCount}
                 </div>
               </div>
             </div>
-            <div className="mt-3">
-              <div className="progressBar bg-white/20 rounded-full h-2">
+            <div className="mt-2 sm:mt-3">
+              <div className="progressBar bg-white/20 rounded-full h-1.5 sm:h-2">
                 <div
                   className="bg-gradient-to-r from-yellow-400 to-orange-500 h-full rounded-full transition-all"
                   style={{
@@ -338,24 +338,28 @@ const AchievementsPage = () => {
             </div>
           </div>
 
-          <div className="statCard bg-gradient-to-br from-green-500/20 to-emerald-600/20 backdrop-blur-md rounded-2xl p-6 border border-green-400/30">
-            <div className="flex items-center gap-4">
-              <div className="text-5xl">💰</div>
+          <div className="statCard bg-gradient-to-br from-green-500/20 to-emerald-600/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-green-400/30">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="text-3xl sm:text-4xl md:text-5xl">💰</div>
               <div>
-                <div className="text-white/70 text-sm">Rewards Earned</div>
-                <div className="text-yellow-400 font-bold text-3xl">
+                <div className="text-white/70 text-xs sm:text-sm">
+                  Rewards Earned
+                </div>
+                <div className="text-yellow-400 font-bold text-2xl sm:text-3xl">
                   {totalRewardsEarned}
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="statCard bg-gradient-to-br from-purple-500/20 to-pink-600/20 backdrop-blur-md rounded-2xl p-6 border border-purple-400/30">
-            <div className="flex items-center gap-4">
-              <div className="text-5xl">📊</div>
+          <div className="statCard bg-gradient-to-br from-purple-500/20 to-pink-600/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-purple-400/30">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="text-3xl sm:text-4xl md:text-5xl">📊</div>
               <div>
-                <div className="text-white/70 text-sm">Completion</div>
-                <div className="text-white font-bold text-3xl">
+                <div className="text-white/70 text-xs sm:text-sm">
+                  Completion
+                </div>
+                <div className="text-white font-bold text-2xl sm:text-3xl">
                   {Math.round((unlockedCount / totalCount) * 100)}%
                 </div>
               </div>
@@ -364,19 +368,21 @@ const AchievementsPage = () => {
         </div>
 
         {/* Category Filters */}
-        <div className="categoriesSection mb-6">
-          <div className="flex gap-3 overflow-x-auto">
+        <div className="categoriesSection mb-4 sm:mb-6">
+          <div className="flex gap-2 sm:gap-3 overflow-x-auto custom-scrollbar">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`category-tab px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${
+                className={`category-tab px-3 py-2 sm:px-4 sm:py-3 md:px-6 rounded-xl text-xs sm:text-sm md:text-base font-bold transition-all whitespace-nowrap ${
                   selectedCategory === category.id
                     ? "bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg scale-105"
                     : "bg-white/10 text-white/70 hover:bg-white/20"
                 }`}
               >
-                <span className="text-xl mr-2">{category.icon}</span>
+                <span className="text-base sm:text-lg md:text-xl mr-1 sm:mr-2">
+                  {category.icon}
+                </span>
                 {category.name}
               </button>
             ))}
@@ -384,29 +390,29 @@ const AchievementsPage = () => {
         </div>
 
         {/* Achievements Grid */}
-        <div className="achievementsGrid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="achievementsGrid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
           {filteredAchievements.map((achievement) => (
             <div
               key={achievement.id}
-              className={`achievementCard bg-white/10 backdrop-blur-md rounded-2xl p-6 border-2 transition-all ${
+              className={`achievementCard bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border-2 transition-all ${
                 achievement.unlocked
                   ? `${getRarityBorder(achievement.rarity)} hover:scale-105 transform`
                   : "border-white/20 grayscale opacity-60"
               }`}
             >
               {/* Rarity Badge */}
-              <div className="flex items-start justify-between mb-4">
+              <div className="flex items-start justify-between mb-3 sm:mb-4 gap-2">
                 <div
                   className={`rarityBadge bg-gradient-to-r ${getRarityColor(
                     achievement.rarity,
-                  )} text-white text-xs font-bold px-3 py-1 rounded-full uppercase`}
+                  )} text-white text-[10px] sm:text-xs font-bold px-2 py-1 sm:px-3 rounded-full uppercase`}
                 >
                   {achievement.rarity}
                 </div>
                 {achievement.unlocked && (
-                  <div className="unlockedBadge bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                  <div className="unlockedBadge bg-green-500 text-white px-2 py-1 sm:px-3 rounded-full text-[10px] sm:text-xs font-bold flex items-center gap-1">
                     <svg
-                      className="w-4 h-4"
+                      className="w-3 h-3 sm:w-4 sm:h-4"
                       fill="currentColor"
                       viewBox="0 0 20 20"
                     >
@@ -423,7 +429,7 @@ const AchievementsPage = () => {
 
               {/* Icon */}
               <div
-                className={`achievementIcon text-6xl mb-4 text-center ${
+                className={`achievementIcon text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4 text-center ${
                   !achievement.unlocked && "filter grayscale"
                 }`}
               >
@@ -431,25 +437,25 @@ const AchievementsPage = () => {
               </div>
 
               {/* Info */}
-              <div className="achievementInfo text-center mb-4">
-                <h3 className="text-white font-bold text-xl mb-2">
+              <div className="achievementInfo text-center mb-3 sm:mb-4">
+                <h3 className="text-white font-bold text-base sm:text-lg md:text-xl mb-1 sm:mb-2">
                   {achievement.name}
                 </h3>
-                <p className="text-white/70 text-sm mb-3">
+                <p className="text-white/70 text-xs sm:text-sm mb-2 sm:mb-3">
                   {achievement.description}
                 </p>
               </div>
 
               {/* Progress */}
               {!achievement.unlocked && (
-                <div className="progressSection mb-4">
-                  <div className="flex justify-between text-sm text-white/80 mb-2">
+                <div className="progressSection mb-3 sm:mb-4">
+                  <div className="flex justify-between text-xs sm:text-sm text-white/80 mb-2">
                     <span>Progress</span>
                     <span className="font-bold">
                       {achievement.progress}/{achievement.target}
                     </span>
                   </div>
-                  <div className="progressBar bg-white/20 rounded-full h-2 overflow-hidden">
+                  <div className="progressBar bg-white/20 rounded-full h-1.5 sm:h-2 overflow-hidden">
                     <div
                       className="bg-gradient-to-r from-blue-400 to-purple-500 h-full rounded-full transition-all"
                       style={{
@@ -462,12 +468,14 @@ const AchievementsPage = () => {
 
               {/* Reward */}
               <div className="rewardSection">
-                <div className="reward flex items-center justify-center gap-2 bg-yellow-500/20 px-4 py-3 rounded-lg">
-                  <span className="text-2xl">💰</span>
-                  <span className="text-yellow-400 font-bold text-lg">
+                <div className="reward flex items-center justify-center gap-1 sm:gap-2 bg-yellow-500/20 px-3 py-2 sm:px-4 sm:py-3 rounded-lg">
+                  <span className="text-lg sm:text-xl md:text-2xl">💰</span>
+                  <span className="text-yellow-400 font-bold text-base sm:text-lg">
                     {achievement.reward}
                   </span>
-                  <span className="text-white/70 text-sm">coins</span>
+                  <span className="text-white/70 text-xs sm:text-sm">
+                    coins
+                  </span>
                 </div>
               </div>
             </div>
@@ -475,46 +483,50 @@ const AchievementsPage = () => {
         </div>
 
         {/* Rarity Legend */}
-        <div className="rarityLegendSection mt-8 bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-          <h3 className="text-white font-bold text-xl mb-4">
+        <div className="rarityLegendSection mt-6 sm:mt-8 bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-white/20">
+          <h3 className="text-white font-bold text-lg sm:text-xl mb-3 sm:mb-4">
             🌟 Rarity Levels
           </h3>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3 sm:gap-4">
             <div className="rarityItem">
-              <div className="bg-gradient-to-r from-gray-500 to-gray-700 text-white font-bold py-2 px-4 rounded-lg text-center mb-2">
+              <div className="bg-gradient-to-r from-gray-500 to-gray-700 text-white text-xs sm:text-sm font-bold py-1.5 px-2 sm:py-2 sm:px-4 rounded-lg text-center mb-1 sm:mb-2">
                 Common
               </div>
-              <p className="text-white/70 text-xs text-center">
+              <p className="text-white/70 text-[10px] sm:text-xs text-center">
                 Easy to unlock
               </p>
             </div>
             <div className="rarityItem">
-              <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-2 px-4 rounded-lg text-center mb-2">
+              <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white text-xs sm:text-sm font-bold py-1.5 px-2 sm:py-2 sm:px-4 rounded-lg text-center mb-1 sm:mb-2">
                 Uncommon
               </div>
-              <p className="text-white/70 text-xs text-center">
+              <p className="text-white/70 text-[10px] sm:text-xs text-center">
                 Requires effort
               </p>
             </div>
             <div className="rarityItem">
-              <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-2 px-4 rounded-lg text-center mb-2">
+              <div className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white text-xs sm:text-sm font-bold py-1.5 px-2 sm:py-2 sm:px-4 rounded-lg text-center mb-1 sm:mb-2">
                 Rare
               </div>
-              <p className="text-white/70 text-xs text-center">Challenging</p>
+              <p className="text-white/70 text-[10px] sm:text-xs text-center">
+                Challenging
+              </p>
             </div>
             <div className="rarityItem">
-              <div className="bg-gradient-to-r from-purple-500 to-pink-600 text-white font-bold py-2 px-4 rounded-lg text-center mb-2">
+              <div className="bg-gradient-to-r from-purple-500 to-pink-600 text-white text-xs sm:text-sm font-bold py-1.5 px-2 sm:py-2 sm:px-4 rounded-lg text-center mb-1 sm:mb-2">
                 Epic
               </div>
-              <p className="text-white/70 text-xs text-center">
+              <p className="text-white/70 text-[10px] sm:text-xs text-center">
                 Very difficult
               </p>
             </div>
             <div className="rarityItem">
-              <div className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white font-bold py-2 px-4 rounded-lg text-center mb-2">
+              <div className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white text-xs sm:text-sm font-bold py-1.5 px-2 sm:py-2 sm:px-4 rounded-lg text-center mb-1 sm:mb-2">
                 Legendary
               </div>
-              <p className="text-white/70 text-xs text-center">Ultimate goal</p>
+              <p className="text-white/70 text-[10px] sm:text-xs text-center">
+                Ultimate goal
+              </p>
             </div>
           </div>
         </div>

@@ -232,18 +232,18 @@ const ShopPage = () => {
   };
 
   return (
-    <div className="shopPageContainer min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-6">
+    <div className="shopPageContainer min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 p-3 sm:p-4 md:p-6 pb-24">
       <div className="shopContent max-w-[1400px] mx-auto">
         {/* Header */}
-        <div className="pageHeader mb-6">
-          <div className="flex items-center justify-between">
+        <div className="pageHeader mb-4 sm:mb-6">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-4">
               <button
                 onClick={() => navigate("/")}
-                className="backButton bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-3 rounded-xl border border-white/20 transition-all"
+                className="backButton bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-2 sm:p-3 rounded-xl border border-white/20 transition-all"
               >
                 <svg
-                  className="w-6 h-6"
+                  className="w-5 h-5 sm:w-6 sm:h-6"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -257,22 +257,24 @@ const ShopPage = () => {
                 </svg>
               </button>
               <div>
-                <h1 className="text-white font-bold text-4xl">🛍️ Shop</h1>
-                <p className="text-white/70 text-sm">
+                <h1 className="text-white font-bold text-2xl sm:text-3xl md:text-4xl">
+                  🛍️ Shop
+                </h1>
+                <p className="text-white/70 text-xs sm:text-sm">
                   Purchase power-ups and customizations
                 </p>
               </div>
             </div>
 
             {/* User Balance */}
-            <div className="balanceCard bg-gradient-to-r from-yellow-500 to-orange-600 backdrop-blur-md rounded-2xl px-6 py-4 border-2 border-yellow-400/50 shadow-xl">
-              <div className="flex items-center gap-3">
-                <div className="text-4xl">💰</div>
+            <div className="balanceCard bg-gradient-to-r from-yellow-500 to-orange-600 backdrop-blur-md rounded-xl sm:rounded-2xl px-3 py-2 sm:px-4 sm:py-3 md:px-6 md:py-4 border-2 border-yellow-400/50 shadow-xl w-full sm:w-auto">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="text-2xl sm:text-3xl md:text-4xl">💰</div>
                 <div>
-                  <div className="text-white/80 text-xs font-semibold">
+                  <div className="text-white/80 text-[10px] sm:text-xs font-semibold">
                     Your Balance
                   </div>
-                  <div className="text-white font-bold text-2xl">
+                  <div className="text-white font-bold text-lg sm:text-xl md:text-2xl">
                     {userCoins.toLocaleString()} Coins
                   </div>
                 </div>
@@ -282,19 +284,21 @@ const ShopPage = () => {
         </div>
 
         {/* Category Tabs */}
-        <div className="categoriesSection mb-6">
-          <div className="flex gap-3 overflow-x-auto">
+        <div className="categoriesSection mb-4 sm:mb-6">
+          <div className="flex gap-2 sm:gap-3 overflow-x-auto custom-scrollbar">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`category-tab px-6 py-3 rounded-xl font-bold transition-all whitespace-nowrap ${
+                className={`category-tab px-3 py-2 sm:px-4 sm:py-3 md:px-6 rounded-xl text-xs sm:text-sm md:text-base font-bold transition-all whitespace-nowrap ${
                   selectedCategory === category.id
                     ? "bg-gradient-to-r from-purple-500 to-indigo-600 text-white shadow-lg scale-105"
                     : "bg-white/10 text-white/70 hover:bg-white/20"
                 }`}
               >
-                <span className="text-xl mr-2">{category.icon}</span>
+                <span className="text-base sm:text-lg md:text-xl mr-1 sm:mr-2">
+                  {category.icon}
+                </span>
                 {category.name}
               </button>
             ))}
@@ -302,45 +306,49 @@ const ShopPage = () => {
         </div>
 
         {/* Items Grid */}
-        <div className="itemsGrid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
+        <div className="itemsGrid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 mb-4 sm:mb-6">
           {shopItems[selectedCategory].map((item) => (
             <div
               key={item.id}
-              className="shopItemCard bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20 hover:border-white/40 transition-all hover:scale-105 transform"
+              className="shopItemCard bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-white/20 hover:border-white/40 transition-all hover:scale-105 transform"
             >
               <div className="flex flex-col h-full">
                 {/* Item Icon */}
-                <div className="itemIcon text-6xl mb-4 text-center">
+                <div className="itemIcon text-4xl sm:text-5xl md:text-6xl mb-3 sm:mb-4 text-center">
                   {item.icon}
                 </div>
 
                 {/* Item Info */}
                 <div className="itemInfo flex-1">
-                  <h3 className="text-white font-bold text-xl mb-2">
+                  <h3 className="text-white font-bold text-base sm:text-lg md:text-xl mb-1 sm:mb-2">
                     {item.name}
                   </h3>
-                  <p className="text-white/70 text-sm mb-4">
+                  <p className="text-white/70 text-xs sm:text-sm mb-3 sm:mb-4">
                     {item.description}
                   </p>
                 </div>
 
                 {/* Price and Button */}
                 <div className="itemFooter">
-                  <div className="priceTag bg-white/10 rounded-lg p-3 mb-3 flex items-center justify-center gap-2">
-                    <span className="text-yellow-400 text-2xl">💰</span>
-                    <span className="text-white font-bold text-xl">
+                  <div className="priceTag bg-white/10 rounded-lg p-2 sm:p-3 mb-2 sm:mb-3 flex items-center justify-center gap-1 sm:gap-2">
+                    <span className="text-yellow-400 text-lg sm:text-xl md:text-2xl">
+                      💰
+                    </span>
+                    <span className="text-white font-bold text-base sm:text-lg md:text-xl">
                       {item.price}
                     </span>
-                    <span className="text-white/70 text-sm">coins</span>
+                    <span className="text-white/70 text-xs sm:text-sm">
+                      coins
+                    </span>
                   </div>
 
                   {item.owned ? (
                     <button
                       disabled
-                      className="w-full bg-green-500/50 text-white font-bold py-3 px-4 rounded-xl cursor-not-allowed flex items-center justify-center gap-2"
+                      className="w-full bg-green-500/50 text-white text-sm sm:text-base font-bold py-2 px-3 sm:py-3 sm:px-4 rounded-xl cursor-not-allowed flex items-center justify-center gap-2"
                     >
                       <svg
-                        className="w-5 h-5"
+                        className="w-4 h-4 sm:w-5 sm:h-5"
                         fill="currentColor"
                         viewBox="0 0 20 20"
                       >
@@ -355,7 +363,7 @@ const ShopPage = () => {
                   ) : (
                     <button
                       onClick={() => handlePurchase(item)}
-                      className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-3 px-4 rounded-xl transition-all transform hover:scale-105 active:scale-95 shadow-lg"
+                      className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white text-sm sm:text-base font-bold py-2 px-3 sm:py-3 sm:px-4 rounded-xl transition-all transform hover:scale-105 active:scale-95 shadow-lg"
                     >
                       Purchase
                     </button>
@@ -367,39 +375,39 @@ const ShopPage = () => {
         </div>
 
         {/* Featured Offers */}
-        <div className="featuredSection mb-6">
-          <h2 className="text-white font-bold text-2xl mb-4">
+        <div className="featuredSection mb-4 sm:mb-6">
+          <h2 className="text-white font-bold text-xl sm:text-2xl mb-3 sm:mb-4">
             ⭐ Featured Offers
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="offerCard bg-gradient-to-br from-pink-500/20 to-rose-600/20 backdrop-blur-md rounded-2xl p-6 border-2 border-pink-400/30">
-              <div className="flex items-center gap-4">
-                <div className="text-6xl">🎉</div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-6">
+            <div className="offerCard bg-gradient-to-br from-pink-500/20 to-rose-600/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border-2 border-pink-400/30">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="text-4xl sm:text-5xl md:text-6xl">🎉</div>
                 <div className="flex-1">
-                  <h3 className="text-white font-bold text-xl mb-1">
+                  <h3 className="text-white font-bold text-base sm:text-lg md:text-xl mb-1">
                     Starter Pack
                   </h3>
-                  <p className="text-white/70 text-sm mb-3">
+                  <p className="text-white/70 text-xs sm:text-sm mb-2 sm:mb-3">
                     Get 5 power-ups + 500 bonus coins
                   </p>
-                  <button className="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold py-2 px-6 rounded-lg transition-all">
+                  <button className="bg-gradient-to-r from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white text-xs sm:text-sm font-bold py-2 px-4 sm:px-6 rounded-lg transition-all">
                     Buy for 1000 coins
                   </button>
                 </div>
               </div>
             </div>
 
-            <div className="offerCard bg-gradient-to-br from-cyan-500/20 to-blue-600/20 backdrop-blur-md rounded-2xl p-6 border-2 border-cyan-400/30">
-              <div className="flex items-center gap-4">
-                <div className="text-6xl">🏆</div>
+            <div className="offerCard bg-gradient-to-br from-cyan-500/20 to-blue-600/20 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border-2 border-cyan-400/30">
+              <div className="flex items-center gap-3 sm:gap-4">
+                <div className="text-4xl sm:text-5xl md:text-6xl">🏆</div>
                 <div className="flex-1">
-                  <h3 className="text-white font-bold text-xl mb-1">
+                  <h3 className="text-white font-bold text-base sm:text-lg md:text-xl mb-1">
                     Premium Bundle
                   </h3>
-                  <p className="text-white/70 text-sm mb-3">
+                  <p className="text-white/70 text-xs sm:text-sm mb-2 sm:mb-3">
                     Unlock all themes + 3 exclusive avatars
                   </p>
-                  <button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-all">
+                  <button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white text-xs sm:text-sm font-bold py-2 px-4 sm:px-6 rounded-lg transition-all">
                     Buy for 2500 coins
                   </button>
                 </div>
@@ -409,29 +417,35 @@ const ShopPage = () => {
         </div>
 
         {/* How to Earn Coins */}
-        <div className="earnCoinsSection bg-white/10 backdrop-blur-md rounded-2xl p-6 border border-white/20">
-          <h2 className="text-white font-bold text-2xl mb-4">
+        <div className="earnCoinsSection bg-white/10 backdrop-blur-md rounded-xl sm:rounded-2xl p-4 sm:p-5 md:p-6 border border-white/20">
+          <h2 className="text-white font-bold text-xl sm:text-2xl mb-3 sm:mb-4">
             💡 How to Earn More Coins
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="earnMethod bg-white/5 rounded-xl p-4">
-              <div className="text-3xl mb-2">🎮</div>
-              <h3 className="text-white font-semibold mb-1">Play Games</h3>
-              <p className="text-white/70 text-sm">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+            <div className="earnMethod bg-white/5 rounded-xl p-3 sm:p-4">
+              <div className="text-2xl sm:text-3xl mb-2">🎮</div>
+              <h3 className="text-white text-sm sm:text-base font-semibold mb-1">
+                Play Games
+              </h3>
+              <p className="text-white/70 text-xs sm:text-sm">
                 Earn 50-100 coins per game based on performance
               </p>
             </div>
-            <div className="earnMethod bg-white/5 rounded-xl p-4">
-              <div className="text-3xl mb-2">✅</div>
-              <h3 className="text-white font-semibold mb-1">Daily Tasks</h3>
-              <p className="text-white/70 text-sm">
+            <div className="earnMethod bg-white/5 rounded-xl p-3 sm:p-4">
+              <div className="text-2xl sm:text-3xl mb-2">✅</div>
+              <h3 className="text-white text-sm sm:text-base font-semibold mb-1">
+                Daily Tasks
+              </h3>
+              <p className="text-white/70 text-xs sm:text-sm">
                 Complete tasks for bonus coins every day
               </p>
             </div>
-            <div className="earnMethod bg-white/5 rounded-xl p-4">
-              <div className="text-3xl mb-2">🏅</div>
-              <h3 className="text-white font-semibold mb-1">Achievements</h3>
-              <p className="text-white/70 text-sm">
+            <div className="earnMethod bg-white/5 rounded-xl p-3 sm:p-4">
+              <div className="text-2xl sm:text-3xl mb-2">🏅</div>
+              <h3 className="text-white text-sm sm:text-base font-semibold mb-1">
+                Achievements
+              </h3>
+              <p className="text-white/70 text-xs sm:text-sm">
                 Unlock achievements to earn special rewards
               </p>
             </div>
