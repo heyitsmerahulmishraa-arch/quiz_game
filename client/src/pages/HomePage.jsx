@@ -1,9 +1,11 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ProfileSection from "../components/users/ProfileSection";
 import FriendsList from "../components/users/FriendsList";
 import CategorySelectionModal from "../components/quiz/CategorySelectionModal";
 
 const HomePage = () => {
+  const navigate = useNavigate();
   const [showCategoryModal, setShowCategoryModal] = useState(false);
 
   // Mock user data - you'll replace this with actual data from your server
@@ -86,7 +88,10 @@ const HomePage = () => {
         <div className="rightSideButtons flex-1">
           <div className="buttonsGrid grid grid-cols-2 gap-4">
             {/* Leaderboard Button */}
-            <button className="actionButton bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105">
+            <button
+              onClick={() => navigate("/leaderboard")}
+              className="actionButton bg-gradient-to-br from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105"
+            >
               <div className="flex flex-col items-center gap-3">
                 <svg
                   className="w-12 h-12"
@@ -105,7 +110,10 @@ const HomePage = () => {
             </button>
 
             {/* Shop Button */}
-            <button className="actionButton bg-gradient-to-br from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105">
+            <button
+              onClick={() => navigate("/shop")}
+              className="actionButton bg-gradient-to-br from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105"
+            >
               <div className="flex flex-col items-center gap-3">
                 <svg
                   className="w-12 h-12"
@@ -119,7 +127,10 @@ const HomePage = () => {
             </button>
 
             {/* Daily Tasks Button */}
-            <button className="actionButton bg-gradient-to-br from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105">
+            <button
+              onClick={() => navigate("/daily-tasks")}
+              className="actionButton bg-gradient-to-br from-pink-500 to-rose-600 hover:from-pink-600 hover:to-rose-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105"
+            >
               <div className="flex flex-col items-center gap-3">
                 <svg
                   className="w-12 h-12"
@@ -137,7 +148,10 @@ const HomePage = () => {
             </button>
 
             {/* Achievements Button */}
-            <button className="actionButton bg-gradient-to-br from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105">
+            <button
+              onClick={() => navigate("/achievements")}
+              className="actionButton bg-gradient-to-br from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105"
+            >
               <div className="flex flex-col items-center gap-3">
                 <svg
                   className="w-12 h-12"
@@ -151,7 +165,10 @@ const HomePage = () => {
             </button>
 
             {/* Settings Button */}
-            <button className="actionButton bg-gradient-to-br from-gray-500 to-gray-700 hover:from-gray-600 hover:to-gray-800 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105">
+            <button
+              onClick={() => navigate("/settings")}
+              className="actionButton bg-gradient-to-br from-gray-500 to-gray-700 hover:from-gray-600 hover:to-gray-800 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105"
+            >
               <div className="flex flex-col items-center gap-3">
                 <svg
                   className="w-12 h-12"
@@ -169,7 +186,10 @@ const HomePage = () => {
             </button>
 
             {/* Statistics Button */}
-            <button className="actionButton bg-gradient-to-br from-teal-500 to-green-600 hover:from-teal-600 hover:to-green-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105">
+            <button
+              onClick={() => navigate("/statistics")}
+              className="actionButton bg-gradient-to-br from-teal-500 to-green-600 hover:from-teal-600 hover:to-green-700 text-white font-bold py-8 px-6 rounded-2xl shadow-lg transform transition-all hover:scale-105"
+            >
               <div className="flex flex-col items-center gap-3">
                 <svg
                   className="w-12 h-12"

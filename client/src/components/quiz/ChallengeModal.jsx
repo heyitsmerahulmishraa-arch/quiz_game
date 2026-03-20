@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CategorySelectionModal = ({ onClose }) => {
+const ChallengeModal = ({ onClose, friendName, friendId }) => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("");
   const [selectedDifficulty, setSelectedDifficulty] = useState("");
   const [numberOfQuestions, setNumberOfQuestions] = useState(10);
+  const [challengeMode, setChallengeMode] = useState("real-time"); // real-time or async
 
   const categories = [
     { id: "general", name: "General Knowledge", icon: "🌍" },
@@ -24,7 +25,7 @@ const CategorySelectionModal = ({ onClose }) => {
     { id: "hard", name: "Hard", color: "from-red-500 to-rose-600" },
   ];
 
-  const handleStartQuiz = () => {
+  const handleSendChallenge = () => {
     if (!selectedCategory || !selectedDifficulty) {
       alert("Please select category and difficulty level!");
       return;
@@ -35,12 +36,17 @@ const CategorySelectionModal = ({ onClose }) => {
       categories.find((c) => c.id === selectedCategory)?.name ||
       selectedCategory;
 
-    // Navigate to quiz page with state
+    // Navigate to quiz page with challenge data
     navigate("/quiz", {
       state: {
         category: categoryName,
         difficulty: selectedDifficulty,
         questionCount: numberOfQuestions,
+        challengeMode: true,
+        opponent: {
+          name: friendName,
+          id: friendId,
+        },
       },
     });
 
@@ -52,14 +58,47 @@ const CategorySelectionModal = ({ onClose }) => {
     <div className="modalOverlay fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="modalContent bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 rounded-3xl p-8 max-w-2xl w-full max-h-[90vh] overflow-y-auto custom-scrollbar border-4 border-white/20 shadow-2xl">
         {/* Header */}
-        <div className="modalHeader flex justify-between items-center mb-6">
-          <h2 className="text-white font-bold text-3xl">Start New Quiz</h2>
-          <button
-            onClick={onClose}
-            className="text-white/70 hover:text-white text-3xl font-bold transition-colors"
-          >
-            ×
-          </button>
+        <div className="modalHeader text-center mb-6">
+          <div className="text-5xl mb-3">⚔️</div>
+          <h2 className="text-white font-bold text-3xl mb-2">
+            Challenge {friendName}
+          </h2>
+          <p className="text-white/70">
+            Select quiz settings and battle it out!
+          </p>
+        </div>
+
+        {/* Challenge Mode Selection */}
+        <div className="challengeModeSection mb-6">
+          <h3 className="text-white font-semibold text-xl mb-4">
+            Challenge Mode
+          </h3>
+          <div className="grid grid-cols-2 gap-3">
+            <button
+              onClick={() => setChallengeMode("real-time")}
+              className={`p-4 rounded-xl border-2 transition-all ${
+                challengeMode === "real-time"
+                  ? "bg-gradient-to-br from-blue-500 to-indigo-600 border-white shadow-lg scale-105"
+                  : "bg-white/10 border-white/20 hover:bg-white/20 hover:scale-105"
+              }`}
+            >
+              <div className="text-3xl mb-2">⚡</div>
+              <div className="text-white font-bold mb-1">Real-Time</div>
+              <div className="text-white/70 text-xs">Play simultaneously</div>
+            </button>
+            <button
+              onClick={() => setChallengeMode("async")}
+              className={`p-4 rounded-xl border-2 transition-all ${
+                challengeMode === "async"
+                  ? "bg-gradient-to-br from-blue-500 to-indigo-600 border-white shadow-lg scale-105"
+                  : "bg-white/10 border-white/20 hover:bg-white/20 hover:scale-105"
+              }`}
+            >
+              <div className="text-3xl mb-2">📨</div>
+              <div className="text-white font-bold mb-1">Async</div>
+              <div className="text-white/70 text-xs">Play when ready</div>
+            </button>
+          </div>
         </div>
 
         {/* Category Selection */}
@@ -72,14 +111,14 @@ const CategorySelectionModal = ({ onClose }) => {
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`categoryButton p-4 rounded-xl border-2 transition-all ${
+                className={`categoryButton p-3 rounded-xl border-2 transition-all ${
                   selectedCategory === category.id
                     ? "bg-gradient-to-br from-green-500 to-emerald-600 border-white shadow-lg scale-105"
                     : "bg-white/10 border-white/20 hover:bg-white/20 hover:scale-105"
                 }`}
               >
-                <div className="text-4xl mb-2">{category.icon}</div>
-                <div className="text-white font-semibold text-sm">
+                <div className="text-3xl mb-1">{category.icon}</div>
+                <div className="text-white font-semibold text-xs">
                   {category.name}
                 </div>
               </button>
@@ -147,7 +186,7 @@ const CategorySelectionModal = ({ onClose }) => {
               step="5"
               value={numberOfQuestions}
               onChange={(e) => setNumberOfQuestions(parseInt(e.target.value))}
-              className="w-full accent-green-500"
+              className="w-full accent-orange-500"
             />
           </div>
         </div>
@@ -161,10 +200,10 @@ const CategorySelectionModal = ({ onClose }) => {
             Cancel
           </button>
           <button
-            onClick={handleStartQuiz}
-            className="flex-1 bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105 active:scale-95"
+            onClick={handleSendChallenge}
+            className="flex-1 bg-gradient-to-r from-orange-500 to-red-600 hover:from-orange-600 hover:to-red-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all transform hover:scale-105"
           >
-            Start Quiz
+            ⚔️ Send Challenge
           </button>
         </div>
       </div>
@@ -172,4 +211,4 @@ const CategorySelectionModal = ({ onClose }) => {
   );
 };
 
-export default CategorySelectionModal;
+export default ChallengeModal;
